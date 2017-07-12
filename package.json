@@ -1,0 +1,17 @@
+{
+    "name": "com.megster.example.hrm",
+    "version": "0.0.1",
+    "displayName": "HeartRate",
+    "cordova": {
+        "platforms": [
+            "android"
+        ],
+        "plugins": {
+            "cordova-plugin-ble-central": {}
+        }
+    },
+    "dependencies": {
+        "cordova-android": "~6.2.3",
+        "cordova-plugin-ble-central": "~1.1.4"
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.megster.example.hrm" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="BLE">
+        <param name="android-package" value="com.megster.cordova.ble.central.BLECentralPlugin" />
+    </feature>
+    <name>HeartRate</name>
+    <description>
+        BLE Heart Rate Monitor Demo
+    </description>
+    <author href="https://github.com/don">
+        Don Coleman
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <gap:plugin name="cordova-plugin-ble-central" source="npm" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="phonegap-version" value="cli-6.1.0" />
+</widget>
