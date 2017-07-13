@@ -32,7 +32,7 @@ var app = {
         app.scan();
     },
     scan: function() {
-        app.status("Scanning for Monitor");
+        app.status("Scanning for BLE device");
 
         var foundHeartRateMonitor = false;
         function onScan(peripheral) {
