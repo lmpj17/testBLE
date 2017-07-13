@@ -1,22 +1,4 @@
-// 
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-/* global ble, statusDiv, beatsPerMinute */
-/* jshint browser: true , devel: true*/
-
-// See BLE heart rate service http://goo.gl/wKH3X7
-var heartRate = {
+var bike = {
     service: 'fff0',
     measurement: 'fff6'
 };
@@ -34,11 +16,11 @@ var app = {
     scan: function() {
         app.status("Scanning for BLE device");
 
-        var foundHeartRateMonitor = false;
+        var foundBikeMonitor = false;
         function onScan(peripheral) {
-            // this is demo code, assume there is only one bike  monitor
+            // 
             console.log("Found " + JSON.stringify(peripheral));
-            foundHeartRateMonitor = true;
+            foundBikeMonitor = true;
 
             ble.connect(peripheral.id, app.onConnect, app.onDisconnect);
         }
@@ -46,37 +28,38 @@ var app = {
         function scanFailure(reason) {
             alert("BLE Scan Failed");
         }
-        console.log("service:" + heartRate.service);
+        console.log("service:" + bike.service);
 
-        ble.scan([heartRate.service], 5, onScan, scanFailure);
+        ble.scan([bike.service], 5, onScan, scanFailure);
 
         setTimeout(function() {
-            if (!foundHeartRateMonitor) {
+            if (!foundBikeMonitor) {
                 app.status("Did not find a BLEdevice.");
             }
         }, 5000);
     },
     onConnect: function(peripheral) {
+        console.log("connect:" + peripheral.id)
         app.status("Connected to " + peripheral.id);
-        ble.startNotification(peripheral.id, heartRate.service, heartRate.measurement, app.onData, app.onError);
+        ble.startNotification(peripheral.id, bike.service, bike.measurement, app.onData, app.onError);
     },
     onDisconnect: function(reason) {
         alert("Disconnected " + reason);
-        returnTest.innerHTML = "...";
+        returnText.innerHTML = returnTest.innerHTML + "...";
         app.status("Disconnected");
     },
     onData: function(buffer) {
-        // assuming bike measurement is Uint8 format, real code should check the flags
-        // See the characteristic specs http://goo.gl/N7S5ZS
+        // assuming bike measurement is Uint8 format
+        // See the characteristic specs
         var data = new Uint8Array(buffer);
-        returnTest.innerHTML = data[1];
+        returnText.innerHTML = returnText.innerHTML + "<br>Data Received:"+ data[1];
     },
     onError: function(reason) {
         alert("There was an error " + reason);
     },
     status: function(message) {
         console.log(message);
-        statusDiv.innerHTML = message;
+        statusDiv.innerHTML =   "<br>" + statusDiv.innerHTML + "<br>" + message;
     }
 };
 
