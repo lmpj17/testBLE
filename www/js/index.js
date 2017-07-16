@@ -1,5 +1,5 @@
 var bike = {
-    service: 'fff0',
+    service: 'Santo',
     measurement: 'fff6'
 };
 
