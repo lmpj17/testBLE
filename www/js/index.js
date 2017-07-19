@@ -1,6 +1,6 @@
 var bike = {
-    service: 'Santo',
-    measurement: 'fff6'
+    service: '1800',
+    measurement: '69f0'
 };
 
 var app = {
